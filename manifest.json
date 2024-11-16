@@ -1,0 +1,33 @@
+{
+    "manifest_version": 3,
+    "name": "GeminiLingo",
+    "version": "1.0",
+    "description": "AI-powered language learning assistant for seamless browsing.",
+    "icons": {
+      "16": "assets/logo16.png",
+      "48": "assets/logo48.png",
+      "128": "assets/logo128.png"
+    },
+    "permissions": [
+      "storage",
+      "contextMenus",
+      "activeTab",
+      "scripting"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "action": {
+      "default_popup": "popup/popup.html",
+      "default_icon": {
+        "16": "assets/logo16.png",
+        "48": "assets/logo48.png",
+        "128": "assets/logo128.png"
+      }
+    },
+    "options_page": "options/options.html"
+  }
+  
