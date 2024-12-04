@@ -3,7 +3,7 @@ async function translateText(text, targetLang = "en") {
       const response = await fetch("https://api.gemini-nano.com/translate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, targetLang })
+        body: JSON.stringify({ text, targetLang }),
       });
       const result = await response.json();
       return result.translation;
@@ -12,4 +12,7 @@ async function translateText(text, targetLang = "en") {
       return "Translation error!";
     }
   }
+  
+  // Expose to global scope
+  window.translateText = translateText;
   

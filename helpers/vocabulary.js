@@ -27,3 +27,8 @@ async function addToVocabulary(word) {
     });
   }
   
+  // Expose to global scope
+  window.addToVocabulary = addToVocabulary;
+  window.getVocabulary = getVocabulary;
+  window.removeFromVocabulary = removeFromVocabulary;
+  

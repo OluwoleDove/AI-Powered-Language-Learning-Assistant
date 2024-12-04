@@ -3,7 +3,7 @@ async function summarizeText(text) {
       const response = await fetch("https://api.gemini-nano.com/summarize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text })
+        body: JSON.stringify({ text }),
       });
       const result = await response.json();
       return result.summary;
@@ -12,4 +12,7 @@ async function summarizeText(text) {
       return "Summarization error!";
     }
   }
+  
+  // Expose to global scope
+  window.summarizeText = summarizeText;
   

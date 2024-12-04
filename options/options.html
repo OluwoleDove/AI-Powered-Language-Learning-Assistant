@@ -4,21 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GeminiLingo - Options</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="options.css">
+  <script src="../helpers/vocabulary.js"></script>
 </head>
 <body>
   <div class="options-container">
     <h1>GeminiLingo Settings</h1>
     <div class="settings-section">
-      <label for="languageSelect">Preferred Language:</label>
-      <select id="languageSelect">
-        <option value="en">English</option>
-        <option value="fr">French</option>
-        <option value="es">Spanish</option>
-        <!-- Add more languages here -->
-      </select>
+        <label for="languageSelect">
+          <i class="fas fa-globe"></i> Preferred Language:
+        </label>
+        <select id="languageSelect">
+          <option value="en">English</option>
+          <option value="fr">French</option>
+          <option value="es">Spanish</option>
+        </select>
     </div>
-    <button id="saveSettingsBtn">Save Settings</button>
+    <div class="settings-section">
+        <h2><i class="fas fa-book"></i> Vocabulary</h2>
+        <ul id="vocabulary-list"></ul>
+    </div>
+    <button id="saveSettingsBtn"><i class="fas fa-save"></i> Save Settings</button>
+      
   </div>
   <script src="options.js"></script>
 </body>

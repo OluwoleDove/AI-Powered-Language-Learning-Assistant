@@ -1,66 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const inputText = document.getElementById("inputText");
-    const output = document.getElementById("output");
+    const translateBtn = document.getElementById("translate-btn");
+    const summarizeBtn = document.getElementById("summarize-btn");
+    const rewriteBtn = document.getElementById("rewrite-btn");
+    const vocabBtn = document.getElementById("vocab-btn");
+    const resultDiv = document.getElementById("result");
+    const selectedTextParagraph = document.getElementById("selected-text");
   
-    const apiCall = async (endpoint, data) => {
-      try {
-        const response = await fetch(`https://api.gemini-nano.com/${endpoint}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
-        const result = await response.json();
-        return result;
-      } catch (error) {
-        console.error("API Error:", error);
-        return { error: "Failed to connect to server." };
+    // Get selected text from background script
+    chrome.runtime.sendMessage({ action: "getSelectedText" }, (response) => {
+      if (response && response.selectedText) {
+        selectedTextParagraph.textContent = `Selected Text: "${response.selectedText}"`;
+      } else {
+        selectedTextParagraph.textContent = "Select text to get started.";
       }
+    });
+  
+    const displayResult = (message) => {
+      resultDiv.textContent = message;
     };
   
-    const translate = async () => {
-      const text = inputText.value.trim();
-      if (text) {
-        const result = await apiCall("translate", { text });
-        output.textContent = result.translation || result.error;
-      }
-    };
+    translateBtn.addEventListener("click", async () => {
+      chrome.runtime.sendMessage({ action: "getSelectedText" }, async (response) => {
+        if (response.selectedText) {
+          const translated = await window.translateText(response.selectedText);
+          displayResult(`Translated: ${translated}`);
+        }
+      });
+    });
   
-    const summarize = async () => {
-      const text = inputText.value.trim();
-      if (text) {
-        const result = await apiCall("summarize", { text });
-        output.textContent = result.summary || result.error;
-      }
-    };
+    summarizeBtn.addEventListener("click", async () => {
+      chrome.runtime.sendMessage({ action: "getSelectedText" }, async (response) => {
+        if (response.selectedText) {
+          const summary = await window.summarizeText(response.selectedText);
+          displayResult(`Summary: ${summary}`);
+        }
+      });
+    });
   
-    const rewrite = async () => {
-      const text = inputText.value.trim();
-      if (text) {
-        const result = await apiCall("rewrite", { text });
-        output.textContent = result.rewrittenText || result.error;
-      }
-    };
+    rewriteBtn.addEventListener("click", async () => {
+      chrome.runtime.sendMessage({ action: "getSelectedText" }, async (response) => {
+        if (response.selectedText) {
+          const rewritten = await window.rewriteText(response.selectedText);
+          displayResult(`Rewritten: ${rewritten}`);
+        }
+      });
+    });
   
-    const saveWord = () => {
-      const word = inputText.value.trim();
-      if (word) {
-        chrome.storage.sync.get(["vocabulary"], (data) => {
-          const vocabulary = data.vocabulary || [];
-          if (!vocabulary.includes(word)) {
-            vocabulary.push(word);
-            chrome.storage.sync.set({ vocabulary }, () => {
-              alert(`Saved "${word}" to your vocabulary!`);
-            });
-          } else {
-            alert(`"${word}" is already in your vocabulary.`);
-          }
-        });
-      }
-    };
-  
-    document.getElementById("translateBtn").addEventListener("click", translate);
-    document.getElementById("summarizeBtn").addEventListener("click", summarize);
-    document.getElementById("rewriteBtn").addEventListener("click", rewrite);
-    document.getElementById("saveBtn").addEventListener("click", saveWord);
+    vocabBtn.addEventListener("click", async () => {
+      chrome.runtime.sendMessage({ action: "getSelectedText" }, async (response) => {
+        if (response.selectedText) {
+          await window.addToVocabulary(response.selectedText);
+          displayResult(`Added to Vocabulary: "${response.selectedText}"`);
+        }
+      });
+    });
   });
   
