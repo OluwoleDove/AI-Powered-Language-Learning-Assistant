@@ -26,31 +26,35 @@ GeminiLingo/
 │   └── vocabulary.js
 └── README.md
 
-# GeminiLingo: AI-Powered Language Learning Assistant
+# GeminiLingo - AI Language Assistant Chrome Extension
 
-GeminiLingo is a cutting-edge Chrome extension designed to make language learning seamless and dynamic. It integrates real-time translation, rewriting, summarization, and vocabulary building directly into your browser.
+GeminiLingo is a Chrome Extension powered by advanced AI to help you with text rewriting, summarization, translation, and vocabulary building. It's your personal assistant for content generation and language learning.
 
 ## Features
-- **Real-Time Translation:** Translate selected text with one click.
-- **Content Rewriting:** Rephrase text dynamically to enhance learning.
-- **Summarization:** Simplify lengthy content into concise summaries.
-- **Vocabulary Builder:** Save and review unfamiliar words for better retention.
+
+- **Text Rewriting**: Get AI-powered suggestions to rewrite your text with better clarity.
+- **Text Summarization**: Automatically summarize long passages of text into concise summaries.
+- **Text Translation**: Translate text into different languages with ease.
+- **Vocabulary Builder**: Save and manage words from the text you interact with.
 
 ## Installation
-1. Clone or download this repository.
-2. Open `chrome://extensions/` in your Chrome browser.
-3. Enable Developer Mode.
-4. Click **Load Unpacked** and select the `GeminiLingo` folder.
+
+1. Download or clone the repository.
+2. Go to `chrome://extensions/` in your Chrome browser.
+3. Enable Developer Mode (top right).
+4. Click on "Load unpacked" and select the `GeminiLingo` folder.
+5. Enjoy the features of GeminiLingo directly in your browser!
 
 ## Usage
-1. Highlight text on any webpage.
-2. Right-click and select a GeminiLingo action (Translate, Rewrite, Summarize).
-3. Use the popup or options page to review vocabulary or change settings.
 
-## Technologies Used
-- **Gemini Nano API:** Powers all translation, rewriting, and summarization features.
-- **Chrome Storage API:** Stores user vocabulary and preferences.
-- **HTML/CSS/JavaScript:** Builds the UI and functionality.
+1. Select the text on any webpage.
+2. Right-click and select "Use GeminiLingo for AI Tasks."
+3. Choose from options like Translate, Rewrite, Summarize, or Save Word to your vocabulary.
+
+## Configuration
+
+To change your preferred language for translation, go to the extension options page and select your desired language from the dropdown.
 
 ## License
-MIT
+
+This project is licensed under the MIT License.
