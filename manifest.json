@@ -3,8 +3,15 @@
   "name": "GeminiLingo",
   "version": "1.0.0",
   "description": "AI-powered language assistant for rewriting, summarizing, translating, and vocabulary building.",
-  "permissions": ["storage", "activeTab", "scripting", "contextMenus"],
-  "host_permissions": ["https://api.gemini-nano.com/*"],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "https://api.gemini-nano.com/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },

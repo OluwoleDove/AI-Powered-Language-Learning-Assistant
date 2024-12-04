@@ -1,3 +1,5 @@
+// helpers/helpers.js
+
 export async function translateText(text, targetLang = "en") {
   try {
     const response = await fetch("https://api.gemini-nano.com/translate", {

@@ -1,3 +1,4 @@
+// popup/popup.js
 import {
     translateText,
     summarizeText,
@@ -7,7 +8,6 @@ import {
     removeFromVocabulary
   } from "../helpers/helpers.js";
   
-  // Example: Using helpers in the popup
   document.addEventListener("DOMContentLoaded", async () => {
     const translateBtn = document.getElementById("translateBtn");
     const summarizeBtn = document.getElementById("summarizeBtn");
