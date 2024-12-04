@@ -1,3 +1,4 @@
+// Set up the context menu when the extension is installed
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
       id: "GeminiLingo",
@@ -6,21 +7,22 @@ chrome.runtime.onInstalled.addListener(() => {
     });
   });
   
-  let selectedText = "";
-  
-  chrome.contextMenus.onClicked.addListener((info) => {
+  // Handle context menu clicks
+  chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === "GeminiLingo" && info.selectionText) {
-      selectedText = info.selectionText;
-      chrome.runtime.sendMessage({ action: "storeSelectedText", text: selectedText });
+      chrome.runtime.sendMessage({
+        action: "processText",
+        text: info.selectionText,
+      });
     }
   });
   
+  // Message listener for communication with popup or content scripts
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === "getSelectedText") {
-      sendResponse({ selectedText });
-    } else if (message.action === "storeSelectedText") {
-      selectedText = message.text;
-      sendResponse({ success: true });
+    if (message.action === "processText") {
+      console.log(`Processing text: "${message.text}"`);
+      // Handle text processing or call APIs here
+      sendResponse({ status: "success", text: `Processed: "${message.text}"` });
     }
   });
   

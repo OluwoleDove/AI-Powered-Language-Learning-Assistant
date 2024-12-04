@@ -17,10 +17,7 @@ GeminiLingo/
 ├── styles/
 │   └── tooltip.css
 ├── helpers/
-│   ├── translator.js
-│   ├── summarizer.js
-│   ├── rewriter.js
-│   └── vocabulary.js
+│   ├── helpers.js
 └── README.md
 
 # GeminiLingo - AI Language Assistant Chrome Extension

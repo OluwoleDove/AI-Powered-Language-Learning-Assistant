@@ -1,58 +1,61 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const translateBtn = document.getElementById("translate-btn");
-    const summarizeBtn = document.getElementById("summarize-btn");
-    const rewriteBtn = document.getElementById("rewrite-btn");
-    const vocabBtn = document.getElementById("vocab-btn");
-    const resultDiv = document.getElementById("result");
-    const selectedTextParagraph = document.getElementById("selected-text");
+import {
+    translateText,
+    summarizeText,
+    rewriteText,
+    addToVocabulary,
+    getVocabulary,
+    removeFromVocabulary
+  } from "../helpers/helpers.js";
   
-    // Get selected text from background script
-    chrome.runtime.sendMessage({ action: "getSelectedText" }, (response) => {
-      if (response && response.selectedText) {
-        selectedTextParagraph.textContent = `Selected Text: "${response.selectedText}"`;
-      } else {
-        selectedTextParagraph.textContent = "Select text to get started.";
+  // Example: Using helpers in the popup
+  document.addEventListener("DOMContentLoaded", async () => {
+    const translateBtn = document.getElementById("translateBtn");
+    const summarizeBtn = document.getElementById("summarizeBtn");
+    const rewriteBtn = document.getElementById("rewriteBtn");
+    const vocabList = document.getElementById("vocabulary-list");
+  
+    // Fetch and display the vocabulary in the popup
+    const vocabulary = await getVocabulary();
+    vocabulary.forEach((word) => {
+      const listItem = document.createElement("li");
+      listItem.innerText = word;
+  
+      const removeBtn = document.createElement("button");
+      removeBtn.innerText = "Remove";
+      removeBtn.addEventListener("click", async () => {
+        await removeFromVocabulary(word);
+        listItem.remove();
+      });
+  
+      listItem.appendChild(removeBtn);
+      vocabList.appendChild(listItem);
+    });
+  
+    // Translate Text Functionality
+    translateBtn.addEventListener("click", async () => {
+      const textToTranslate = prompt("Enter text to translate:");
+      if (textToTranslate) {
+        const translation = await translateText(textToTranslate, "fr"); // Translate to French
+        alert(`Translated text: ${translation}`);
       }
     });
   
-    const displayResult = (message) => {
-      resultDiv.textContent = message;
-    };
-  
-    translateBtn.addEventListener("click", async () => {
-      chrome.runtime.sendMessage({ action: "getSelectedText" }, async (response) => {
-        if (response.selectedText) {
-          const translated = await window.translateText(response.selectedText);
-          displayResult(`Translated: ${translated}`);
-        }
-      });
-    });
-  
+    // Summarize Text Functionality
     summarizeBtn.addEventListener("click", async () => {
-      chrome.runtime.sendMessage({ action: "getSelectedText" }, async (response) => {
-        if (response.selectedText) {
-          const summary = await window.summarizeText(response.selectedText);
-          displayResult(`Summary: ${summary}`);
-        }
-      });
+      const textToSummarize = prompt("Enter text to summarize:");
+      if (textToSummarize) {
+        const summary = await summarizeText(textToSummarize);
+        alert(`Summarized text: ${summary}`);
+      }
     });
   
+    // Rewrite Text Functionality
     rewriteBtn.addEventListener("click", async () => {
-      chrome.runtime.sendMessage({ action: "getSelectedText" }, async (response) => {
-        if (response.selectedText) {
-          const rewritten = await window.rewriteText(response.selectedText);
-          displayResult(`Rewritten: ${rewritten}`);
-        }
-      });
-    });
-  
-    vocabBtn.addEventListener("click", async () => {
-      chrome.runtime.sendMessage({ action: "getSelectedText" }, async (response) => {
-        if (response.selectedText) {
-          await window.addToVocabulary(response.selectedText);
-          displayResult(`Added to Vocabulary: "${response.selectedText}"`);
-        }
-      });
+      const textToRewrite = prompt("Enter text to rewrite:");
+      if (textToRewrite) {
+        const rewrittenText = await rewriteText(textToRewrite);
+        alert(`Rewritten text: ${rewrittenText}`);
+      }
     });
   });
   

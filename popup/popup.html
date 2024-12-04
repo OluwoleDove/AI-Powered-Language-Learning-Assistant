@@ -3,26 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GeminiLingo</title>
+  <title>GeminiLingo - Popup</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <div id="popup-container">
-        <h1>GeminiLingo</h1>
-        <p id="selected-text">Select text to get started.</p>
-        <div class="actions">
-        <button id="translate-btn" title="Translate"><i class="fas fa-language"></i> Translate</button>
-        <button id="summarize-btn" title="Summarize"><i class="fas fa-file-alt"></i> Summarize</button>
-        <button id="rewrite-btn" title="Rewrite"><i class="fas fa-sync-alt"></i> Rewrite</button>
-        <button id="vocab-btn" title="Add to Vocabulary"><i class="fas fa-book"></i> Add to Vocabulary</button>
-        </div>
-        <div id="result"></div>
+  <div class="popup-container">
+    <h1>GeminiLingo</h1>
+    <div class="actions">
+      <button id="translateBtn"><i class="fas fa-language"></i> Translate</button>
+      <button id="summarizeBtn"><i class="fas fa-file-alt"></i> Summarize</button>
+      <button id="rewriteBtn"><i class="fas fa-pencil-alt"></i> Rewrite</button>
     </div>
-    <script src="../helpers/translator.js"></script>
-    <script src="../helpers/summarizer.js"></script>
-    <script src="../helpers/rewriter.js"></script>
-    <script src="../helpers/vocabulary.js"></script>
-    <script src="popup.js"></script>
+    <div class="vocabulary-section">
+      <h2>Vocabulary</h2>
+      <ul id="vocabulary-list"></ul>
+    </div>
+  </div>
+  <script src="popup.js"></script>
 </body>
 </html>
