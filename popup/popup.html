@@ -1,24 +1,24 @@
-<!-- popup/popup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GeminiLingo - Popup</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="popup.css">
+  <title>GeminiLingo</title>
 </head>
 <body>
-  <div class="popup-container">
+  <div id="popup-container">
     <h1>GeminiLingo</h1>
-    <div class="actions">
-      <button id="translateBtn"><i class="fas fa-language"></i> Translate</button>
-      <button id="summarizeBtn"><i class="fas fa-file-alt"></i> Summarize</button>
-      <button id="rewriteBtn"><i class="fas fa-pencil-alt"></i> Rewrite</button>
+    <div>
+      <button id="translate-btn">Translate</button>
+      <button id="summarize-btn">Summarize</button>
+      <button id="detect-btn">Detect Language</button>
+      <button id="prompt-btn">Generate Prompt</button>
     </div>
-    <div class="vocabulary-section">
-      <h2>Vocabulary</h2>
-      <ul id="vocabulary-list"></ul>
+    <textarea id="input-text" placeholder="Enter text here"></textarea>
+    <div id="output-container">
+      <h3>Output:</h3>
+      <p id="output-text"></p>
     </div>
   </div>
   <script src="popup.js"></script>

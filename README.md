@@ -1,3 +1,25 @@
+# GeminiLingo - AI Language Assistant Chrome Extension
+
+GeminiLingo is a Chrome Extension powered by advanced AI to help you with text rewriting, summarization, translation, and vocabulary building. It's your personal assistant for content generation and language learning.
+
+## Features
+1. **Language Detection**: Detect the language of any text.
+2. **Summarization**: Summarize long articles or documents.
+3. **Translation**: Translate text between multiple languages.
+4. **Prompt Generation**: Generate creative or informative responses to prompts.
+
+## Installation
+1. Clone this repository or download the ZIP file.
+2. Navigate to `chrome://extensions/` in your browser.
+3. Enable **Developer Mode**.
+4. Click **Load Unpacked** and select the `GeminiLingo` folder.
+
+## Usage
+1. Open the extension popup.
+2. Use the provided buttons to interact with the APIs.
+3. Configure default settings via the **Options** page.
+
+## File Structure
 GeminiLingo/
 ├── manifest.json
 ├── background.js
@@ -17,38 +39,6 @@ GeminiLingo/
 ├── styles/
 │   └── tooltip.css
 ├── helpers/
-│   ├── helpers.js
+│   └── helpers.js
 └── README.md
 
-# GeminiLingo - AI Language Assistant Chrome Extension
-
-GeminiLingo is a Chrome Extension powered by advanced AI to help you with text rewriting, summarization, translation, and vocabulary building. It's your personal assistant for content generation and language learning.
-
-## Features
-
-- **Text Rewriting**: Get AI-powered suggestions to rewrite your text with better clarity.
-- **Text Summarization**: Automatically summarize long passages of text into concise summaries.
-- **Text Translation**: Translate text into different languages with ease.
-- **Vocabulary Builder**: Save and manage words from the text you interact with.
-
-## Installation
-
-1. Download or clone the repository.
-2. Go to `chrome://extensions/` in your Chrome browser.
-3. Enable Developer Mode (top right).
-4. Click on "Load unpacked" and select the `GeminiLingo` folder.
-5. Enjoy the features of GeminiLingo directly in your browser!
-
-## Usage
-
-1. Select the text on any webpage.
-2. Right-click and select "Use GeminiLingo for AI Tasks."
-3. Choose from options like Translate, Rewrite, Summarize, or Save Word to your vocabulary.
-
-## Configuration
-
-To change your preferred language for translation, go to the extension options page and select your desired language from the dropdown.
-
-## License
-
-This project is licensed under the MIT License.

@@ -1,19 +1,30 @@
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === "highlightVocabulary") {
-      const words = message.words || [];
-      // Clear previous highlights
-      document.body.querySelectorAll(".highlight").forEach((el) => el.classList.remove("highlight"));
-  
-      // Highlight vocabulary
-      words.forEach((word) => {
-        const regex = new RegExp(`\\b${word}\\b`, "gi");
-        document.body.innerHTML = document.body.innerHTML.replace(
-          regex,
-          `<span class="highlight">${word}</span>`
-        );
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "translate") {
+      console.log("Translating text:", request.text);
+      translateText(request.text, "en", "es").then((result) => {
+        sendResponse({ success: true, result });
+      }).catch((error) => {
+        console.error("Translation failed:", error);
+        sendResponse({ success: false, message: error.message });
       });
-  
-      sendResponse({ success: true });
+    } else if (request.action === "summarize") {
+      console.log("Summarizing text:", request.text);
+      summarizeText(request.text).then((summary) => {
+        sendResponse({ success: true, result: summary });
+      }).catch((error) => {
+        console.error("Summarization failed:", error);
+        sendResponse({ success: false, message: error.message });
+      });
+    } else if (request.action === "detect") {
+      console.log("Detecting language:", request.text);
+      detectLanguage(request.text).then((language) => {
+        sendResponse({ success: true, result: language });
+      }).catch((error) => {
+        console.error("Language detection failed:", error);
+        sendResponse({ success: false, message: error.message });
+      });
     }
+  
+    return true; // Ensures the response is sent asynchronously
   });
   

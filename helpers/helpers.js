@@ -1,71 +1,58 @@
-// helpers/helpers.js
+const fs = require("fs");
+const path = require("path");
 
-export async function translateText(text, targetLang = "en") {
+const apiKeysPath = path.resolve(__dirname, "api_keys.txt");
+let apiKeys = {};
+
+// Load API keys
+function loadApiKeys() {
   try {
-    const response = await fetch("https://api.gemini-nano.com/translate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, targetLang }),
+    const data = fs.readFileSync(apiKeysPath, "utf8");
+    data.split("\n").forEach((line) => {
+      const [key, value] = line.split("=");
+      if (key && value) apiKeys[key.trim()] = value.trim().replace(/"/g, "");
     });
-    const result = await response.json();
-    return result.translation;
-  } catch (error) {
-    console.error("Error translating text:", error);
-    return "Translation error!";
+  } catch (err) {
+    console.error("Error loading API keys:", err.message);
   }
 }
 
-export async function summarizeText(text) {
-  try {
-    const response = await fetch("https://api.gemini-nano.com/summarize", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text }),
-    });
-    const result = await response.json();
-    return result.summary;
-  } catch (error) {
-    console.error("Error summarizing text:", error);
-    return "Summarization error!";
-  }
-}
+loadApiKeys();
 
-export async function rewriteText(text) {
-  try {
-    const response = await fetch("https://api.gemini-nano.com/rewrite", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text }),
-    });
-    const result = await response.json();
-    return result.rewrittenText;
-  } catch (error) {
-    console.error("Error rewriting text:", error);
-    return "Rewriting error!";
-  }
-}
-
-export async function addToVocabulary(word) {
-  chrome.storage.sync.get(["vocabulary"], (data) => {
-    const vocabulary = data.vocabulary || [];
-    if (!vocabulary.includes(word)) {
-      vocabulary.push(word);
-      chrome.storage.sync.set({ vocabulary });
+module.exports = {
+  async detectLanguage(text) {
+    try {
+      // Replace with your language detection API logic
+      return [{ language: "en", confidence: 0.99 }];
+    } catch (err) {
+      throw new Error("Language detection failed.");
     }
-  });
-}
+  },
 
-export async function getVocabulary() {
-  return new Promise((resolve) => {
-    chrome.storage.sync.get(["vocabulary"], (data) => {
-      resolve(data.vocabulary || []);
-    });
-  });
-}
+  async summarizeText(text, options) {
+    try {
+      // Replace with your summarization API logic
+      return `Summary of the text: ${text.substring(0, 100)}...`;
+    } catch (err) {
+      throw new Error("Summarization failed.");
+    }
+  },
 
-export async function removeFromVocabulary(word) {
-  chrome.storage.sync.get(["vocabulary"], (data) => {
-    const vocabulary = (data.vocabulary || []).filter((item) => item !== word);
-    chrome.storage.sync.set({ vocabulary });
-  });
-}
+  async translateText(text, sourceLang, targetLang) {
+    try {
+      // Replace with your translation API logic
+      return `Translated: ${text} (from ${sourceLang} to ${targetLang})`;
+    } catch (err) {
+      throw new Error("Translation failed.");
+    }
+  },
+
+  async generatePromptResponse(prompt) {
+    try {
+      // Replace with your prompting API logic
+      return `Response to the prompt: ${prompt}`;
+    } catch (err) {
+      throw new Error("Prompt generation failed.");
+    }
+  },
+};

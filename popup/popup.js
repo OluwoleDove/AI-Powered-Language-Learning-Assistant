@@ -1,61 +1,39 @@
-// popup/popup.js
-import {
-    translateText,
-    summarizeText,
-    rewriteText,
-    addToVocabulary,
-    getVocabulary,
-    removeFromVocabulary
-  } from "../helpers/helpers.js";
-  
-  document.addEventListener("DOMContentLoaded", async () => {
-    const translateBtn = document.getElementById("translateBtn");
-    const summarizeBtn = document.getElementById("summarizeBtn");
-    const rewriteBtn = document.getElementById("rewriteBtn");
-    const vocabList = document.getElementById("vocabulary-list");
-  
-    // Fetch and display the vocabulary in the popup
-    const vocabulary = await getVocabulary();
-    vocabulary.forEach((word) => {
-      const listItem = document.createElement("li");
-      listItem.innerText = word;
-  
-      const removeBtn = document.createElement("button");
-      removeBtn.innerText = "Remove";
-      removeBtn.addEventListener("click", async () => {
-        await removeFromVocabulary(word);
-        listItem.remove();
-      });
-  
-      listItem.appendChild(removeBtn);
-      vocabList.appendChild(listItem);
-    });
-  
-    // Translate Text Functionality
-    translateBtn.addEventListener("click", async () => {
-      const textToTranslate = prompt("Enter text to translate:");
-      if (textToTranslate) {
-        const translation = await translateText(textToTranslate, "fr"); // Translate to French
-        alert(`Translated text: ${translation}`);
-      }
-    });
-  
-    // Summarize Text Functionality
-    summarizeBtn.addEventListener("click", async () => {
-      const textToSummarize = prompt("Enter text to summarize:");
-      if (textToSummarize) {
-        const summary = await summarizeText(textToSummarize);
-        alert(`Summarized text: ${summary}`);
-      }
-    });
-  
-    // Rewrite Text Functionality
-    rewriteBtn.addEventListener("click", async () => {
-      const textToRewrite = prompt("Enter text to rewrite:");
-      if (textToRewrite) {
-        const rewrittenText = await rewriteText(textToRewrite);
-        alert(`Rewritten text: ${rewrittenText}`);
-      }
-    });
-  });
-  
+// popup.js
+import { detectLanguage, summarizeText, translateText, generatePromptResponse } from "../helpers/helpers.js";
+
+const inputText = document.getElementById("input-text");
+const outputText = document.getElementById("output-text");
+
+// Utility to display output
+function displayOutput(message) {
+  outputText.textContent = message;
+}
+
+// Event listeners for buttons
+document.getElementById("translate-btn").addEventListener("click", async () => {
+  const text = inputText.value.trim();
+  if (!text) return displayOutput("Please enter text to translate.");
+  const translated = await translateText(text, "en", "es");
+  displayOutput(translated || "Translation failed.");
+});
+
+document.getElementById("summarize-btn").addEventListener("click", async () => {
+  const text = inputText.value.trim();
+  if (!text) return displayOutput("Please enter text to summarize.");
+  const summary = await summarizeText(text, { length: "medium" });
+  displayOutput(summary || "Summarization failed.");
+});
+
+document.getElementById("detect-btn").addEventListener("click", async () => {
+  const text = inputText.value.trim();
+  if (!text) return displayOutput("Please enter text to detect language.");
+  const results = await detectLanguage(text);
+  displayOutput(results.map(r => `${r.language}: ${r.confidence}`).join("\n"));
+});
+
+document.getElementById("prompt-btn").addEventListener("click", async () => {
+  const prompt = inputText.value.trim();
+  if (!prompt) return displayOutput("Please enter a prompt.");
+  const response = await generatePromptResponse(prompt);
+  displayOutput(response || "Prompt generation failed.");
+});

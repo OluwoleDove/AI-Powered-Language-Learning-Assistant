@@ -1,39 +1,37 @@
-/* popup.css */
-body {
+#popup-container {
     font-family: Arial, sans-serif;
+    padding: 10px;
     width: 300px;
-    padding: 20px;
+  }
+  
+  h1 {
+    color: #007BFF;
+    text-align: center;
   }
   
   button {
     width: 100%;
     padding: 10px;
     margin: 5px 0;
-    background-color: #007bff;
+    background: #007BFF;
     color: white;
     border: none;
-    cursor: pointer;
+    border-radius: 5px;
   }
   
   button:hover {
-    background-color: #0056b3;
+    background: #0056b3;
   }
   
-  .vocabulary-section {
-    margin-top: 20px;
+  textarea {
+    width: 100%;
+    height: 80px;
+    margin: 10px 0;
   }
   
-  .vocabulary-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .vocabulary-section li {
-    margin-bottom: 5px;
-  }
-  
-  .vocabulary-section button {
-    margin-left: 10px;
-    background-color: red;
+  #output-container {
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
   }
   

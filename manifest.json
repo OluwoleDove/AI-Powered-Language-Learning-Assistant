@@ -1,20 +1,13 @@
 {
   "manifest_version": 3,
   "name": "GeminiLingo",
-  "version": "1.0.0",
-  "description": "AI-powered language assistant for rewriting, summarizing, translating, and vocabulary building.",
-  "permissions": [
-    "storage",
-    "activeTab",
-    "scripting",
-    "contextMenus"
-  ],
-  "host_permissions": [
-    "https://api.gemini-nano.com/*"
-  ],
+  "version": "1.0",
+  "description": "A browser extension for language detection, translation, summarization, and prompt generation.",
+  "permissions": ["scripting", "activeTab", "storage", "contextMenus"],
   "background": {
     "service_worker": "background.js"
   },
+  "host_permissions": ["*://*/*"],
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
@@ -23,13 +16,16 @@
       "128": "assets/logo128.png"
     }
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
   "icons": {
     "16": "assets/logo16.png",
     "48": "assets/logo48.png",
     "128": "assets/logo128.png"
-  },
-  "options_ui": {
-    "page": "options/options.html",
-    "open_in_tab": true
   }
 }
